@@ -10,7 +10,6 @@ import (
 	"os/signal"
 	"strings"
 	"syscall"
-	"time"
 
 	"golang.org/x/net/html/charset"
 )
@@ -45,6 +44,7 @@ func (y *Yod) Start() {
 	}
 
 	<-y.interrupt
+	fmt.Println("byte")
 }
 
 func (y *Yod) Use(middleware MiddlewareFunc) {
@@ -127,12 +127,7 @@ func (c *context) Write(b []byte) (int64, error) {
 }
 
 func (c *context) close() {
-	one := []byte{}
-	c.conn.SetReadDeadline(time.Now())
-	if _, err := c.conn.Read(one); err == io.EOF {
-		c.conn.Close()
-		c.conn = nil
-	}
+	c.conn.Close()
 }
 
 func middleware(next Handler) Handler {

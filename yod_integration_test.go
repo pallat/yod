@@ -28,6 +28,7 @@ func (m *mocker) handler(c Context) {
 	wg.Done()
 }
 
+
 func TestFramework(t *testing.T) {
 	wg.Add(1)
 	y := New()
@@ -51,3 +52,4 @@ func TestFramework(t *testing.T) {
 	}
 	y.interrupt <- syscall.SIGINT
 }
+
